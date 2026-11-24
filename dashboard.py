@@ -33,32 +33,6 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Styling navigasi radio modern seperti pill / icon bersih
-st.markdown("""
-<style>
-/* Hilangkan lingkaran radio button di sidebar */
-[data-testid="stSidebar"] [data-testid="stRadio"] > div[role="radiogroup"] > label > div:first-child {
-    display: none !important;
-}
-/* Style item radio seperti tombol navigasi modern */
-[data-testid="stSidebar"] [data-testid="stRadio"] > div[role="radiogroup"] > label {
-    padding: 8px 14px !important;
-    border-radius: 8px !important;
-    margin-bottom: 3px !important;
-    cursor: pointer !important;
-    transition: all 0.2s ease-in-out !important;
-}
-[data-testid="stSidebar"] [data-testid="stRadio"] > div[role="radiogroup"] > label:hover {
-    background-color: rgba(255, 255, 255, 0.08) !important;
-}
-[data-testid="stSidebar"] [data-testid="stRadio"] > div[role="radiogroup"] > label[data-checked="true"],
-[data-testid="stSidebar"] [data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked) {
-    background-color: #383838 !important;
-    font-weight: 600 !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
 # ==============================================================================
 # CACHING & MEMUAT DATASET (BAB 2.3: MENAMPILKAN DATA)
 # ==============================================================================
@@ -338,26 +312,9 @@ def get_dataset_structure_audit(df):
     }
 
 # ==============================================================================
-# SIDEBAR NAVIGASI (BAB 2.7: SIDEBAR)
+# DEFINISI HALAMAN-HALAMAN MODUL
 # ==============================================================================
-st.sidebar.title("Navigasi Modul")
-st.sidebar.caption("Dashboard Analisis & Pemodelan Ames Housing")
-
-menu = st.sidebar.radio(
-    "Pilih Modul / Halaman:",
-    [
-        ":material/home: 1. Overview & Dataset Preview",
-        ":material/bar_chart: 2. Diagnostic EDA & Preprocessing (10 Masalah)",
-        ":material/scatter_plot: 3. Reduksi Dimensi (PCA)",
-        ":material/smart_toy: 4. Komparasi 3 Paradigma ML",
-        ":material/tune: 5. Simulator Prediksi Harga Real-Time",
-    ],
-)
-
-# ==============================================================================
-# HALAMAN 1: OVERVIEW & DATASET PREVIEW
-# ==============================================================================
-if "1. Overview" in menu:
+def page_beranda():
     st.title("Dashboard Analisis Properti & Machine Learning Ames Housing")
     st.markdown(
         "Aplikasi ini mengimplementasikan **framework Streamlit** untuk mendiagnosis 12 masalah utama *data preprocessing*, "
@@ -376,8 +333,9 @@ if "1. Overview" in menu:
     st.subheader("Preview Dataset Utama (st.dataframe)")
     st.dataframe(df_raw.head(10), use_container_width=True)
 
-    st.divider()
-    st.subheader(":material/search: Audit & Pemahaman Dataset Kelompok (Ames Housing)")
+
+def page_tentang_dataset():
+    st.title(":material/database: Tentang Dataset & Audit Kelompok (Ames Housing)")
     st.caption("Pemeriksaan struktur menyeluruh, pemetaan 82 kolom, analisis variabel target, dan identifikasi kualitas data sesuai modul Bab 1 & 2.")
 
     audit_struct = get_dataset_structure_audit(df_raw)
@@ -490,7 +448,7 @@ if "1. Overview" in menu:
 # ==============================================================================
 # HALAMAN 2: DIAGNOSTIC EDA & PREPROCESSING (10 MASALAH DIVERIFIKASI)
 # ==============================================================================
-elif "2. Diagnostic" in menu:
+def page_diagnostic_eda():
     st.title("Diagnosa & Solusi Preprocessing Data (Masalah 1 - 10)")
     st.caption("Eksplorasi mendalam terkait kebocoran data, skewness, imputasi, VIF, dan penanganan outlier.")
 
@@ -697,7 +655,7 @@ elif "2. Diagnostic" in menu:
 # ==============================================================================
 # HALAMAN 3: REDUKSI DIMENSI BERBASIS PROYEKSI ORTOGONAL (PCA)
 # ==============================================================================
-elif "3. Reduksi Dimensi" in menu:
+def page_pca():
     st.title("Masalah 11: Reduksi Dimensi Proyeksi Ortogonal (PCA)")
     st.markdown("Mengompresi fitur berkorelasi tinggi menjadi komponen utama yang saling **ortogonal (korelasi r ≈ 0)**.")
 
@@ -741,7 +699,7 @@ elif "3. Reduksi Dimensi" in menu:
 # ==============================================================================
 # HALAMAN 4: KOMPARASI 3 PARADIGMA ML
 # ==============================================================================
-elif "4. Komparasi" in menu:
+def page_komparasi_ml():
     st.title("Masalah 12: Komparasi 3 Paradigma Algoritma Supervised Learning")
     st.markdown("Evaluasi performa model Parametrik Linear vs Berbasis Jarak (K-NN) vs Berbasis Pohon (Decision Tree & Random Forest).")
 
@@ -834,7 +792,7 @@ elif "4. Komparasi" in menu:
 # ==============================================================================
 # HALAMAN 5: SIMULATOR PREDIKSI HARGA REAL-TIME (BAB 2.5 & BAB 2.8)
 # ==============================================================================
-elif "5. Simulator" in menu:
+def page_simulator():
     st.title("Simulator Valuasi Real-Time Harga Rumah Ames")
     st.markdown("Masukkan karakteristik rumah untuk mendapatkan estimasi harga seketika dari model terlatih.")
 
@@ -888,3 +846,25 @@ elif "5. Simulator" in menu:
         # Parameter Ringkasan
         st.subheader("Ringkasan Spesifikasi Input:")
         st.dataframe(data_input, use_container_width=True)
+
+
+# ==============================================================================
+# INISIALISASI NAVIGASI STREAMLIT (NATIVE ST.NAVIGATION)
+# ==============================================================================
+nav_pages = {
+    "Pengantar": [
+        st.Page(page_beranda, title="Beranda", icon=":material/home:", default=True),
+        st.Page(page_tentang_dataset, title="Tentang Dataset", icon=":material/database:"),
+        st.Page(page_diagnostic_eda, title="Eksplorasi Data (EDA)", icon=":material/bar_chart:"),
+    ],
+    "Pengolahan & Model": [
+        st.Page(page_pca, title="Reduksi Dimensi (PCA)", icon=":material/scatter_plot:"),
+        st.Page(page_komparasi_ml, title="Komparasi 3 Paradigma ML", icon=":material/smart_toy:"),
+    ],
+    "Penerapan": [
+        st.Page(page_simulator, title="Simulator Prediksi Harga", icon=":material/tune:"),
+    ],
+}
+
+pg = st.navigation(nav_pages)
+pg.run()

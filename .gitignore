@@ -1,0 +1,51 @@
+# ==============================================================================
+# GITIGNORE - Ames Housing Streamlit & ML Deployment
+# ==============================================================================
+
+# Virtual Environment (JANGAN PERNAH DI-UPLOAD KE GITHUB)
+.venv/
+venv/
+env/
+ENV/
+*.env
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Streamlit Local Configuration & Secrets
+**/.streamlit/credentials.toml
+**/.streamlit/secrets.toml
+credentials.toml
+secrets.toml
+
+# IDE & Editor Settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Output & Screenshot Temporary Files
+outputs/
+*.log
+
+# Large Binary Documents (PDF Buku Panduan > 5MB)
+*.pdf
+
+# Skrip Generator Manual Book & Utilitas Internal (Tidak relevan untuk deploy aplikasi web)
+build_revised_manual_book.py
+generate_manual_book.py
+generate_pdf_guide.py
+capture_screenshots.py
+create_terminal_ss.py
+test_valid.ipynb
+skills/
+
+# OS Specific
+Thumbs.db
+Desktop.ini
+.DS_Store

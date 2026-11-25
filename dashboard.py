@@ -342,10 +342,10 @@ def page_tentang_dataset():
 
     tab_p1, tab_p2, tab_p3, tab_p4 = st.tabs(
         [
-            ":material/table_chart: 1. Pemeriksaan Struktur & Missing Values",
-            ":material/map: 2. Pemetaan Arti Kolom (82 Kolom)",
-            ":material/analytics: 3. Target & Distribusi Log1p",
-            ":material/verified: 4. Audit Kualitas & Anomali Data",
+            ":material/table_chart: Pemeriksaan Struktur & Missing Values",
+            ":material/map: Pemetaan Arti Kolom (82 Kolom)",
+            ":material/analytics: Target & Distribusi Log1p",
+            ":material/verified: Audit Kualitas & Anomali Data",
         ]
     )
 

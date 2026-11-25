@@ -61,9 +61,4 @@ Arahkan terminal ke folder proyek Anda, lalu jalankan perintah Streamlit sesuai 
 
 ---
 
-## 👥 Identitas Pembuat
 
-- **Nama:** Harya Rachmat Suzana
-- **NIM:** 241011401798
-- **Program Studi:** Teknik Informatika
-- **Universitas:** Universitas Pamulang

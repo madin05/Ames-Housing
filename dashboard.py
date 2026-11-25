@@ -656,7 +656,7 @@ def page_diagnostic_eda():
 # HALAMAN 3: REDUKSI DIMENSI BERBASIS PROYEKSI ORTOGONAL (PCA)
 # ==============================================================================
 def page_pca():
-    st.title("Masalah 11: Reduksi Dimensi Proyeksi Ortogonal (PCA)")
+    st.title("Reduksi Dimensi Proyeksi Ortogonal (PCA)")
     st.markdown("Mengompresi fitur berkorelasi tinggi menjadi komponen utama yang saling **ortogonal (korelasi r ≈ 0)**.")
 
     outlier_anomali_mask = (df_raw['Gr Liv Area'] > 4000) & (df_raw['SalePrice'] < 300000)
@@ -700,7 +700,7 @@ def page_pca():
 # HALAMAN 4: KOMPARASI 3 PARADIGMA ML
 # ==============================================================================
 def page_komparasi_ml():
-    st.title("Masalah 12: Komparasi 3 Paradigma Algoritma Supervised Learning")
+    st.title("Komparasi 3 Paradigma Algoritma Supervised Learning")
     st.markdown("Evaluasi performa model Parametrik Linear vs Berbasis Jarak (K-NN) vs Berbasis Pohon (Decision Tree & Random Forest).")
 
     outlier_anomali_mask = (df_raw['Gr Liv Area'] > 4000) & (df_raw['SalePrice'] < 300000)
